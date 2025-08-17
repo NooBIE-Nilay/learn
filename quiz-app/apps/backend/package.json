@@ -1,9 +1,6 @@
 {
-  "name": "db",
+  "name": "backend",
   "module": "index.ts",
-  "exports": {
-    "./client": "./index.ts"
-  },
   "type": "module",
   "private": true,
   "devDependencies": {
@@ -13,7 +10,11 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@prisma/client": "^6.14.0",
-    "prisma": "^6.14.0"
+    "@types/express": "^5.0.3",
+    "express": "^5.1.0"
+  },
+  "scripts": {
+    "dev": "bun --hot index.ts",
+    "start": "bun index.ts"
   }
 }

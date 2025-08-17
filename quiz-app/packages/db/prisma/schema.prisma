@@ -15,42 +15,42 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                           String                                      @id @default(uuid())
+  email                     String                                      @unique
+  password             String
+  createdAt             DateTime                               @default(now())
+  updatedAt            DateTime                               @updatedAt
   createdQuizzes   Quiz[]
-  participation Participant[]
+  participation         Participant[]
 }
 
 model Quiz {
-  id        String   @id @default(uuid())
-  title     String
-  description String
-  authorId String
-  Author User @relation(fields: [authorId], references: [id])
-  maxScore Int @default(0)
-  questions Question[]
-  participants Participant[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                              String                            @id @default(uuid())
+  title                           String
+  description              String
+  authorId                   String
+  Author                      User                            @relation(fields: [authorId], references: [id])
+  maxScore                 Int                                @default(0)
+  questions                 Question[]
+  participants              Participant[]
+  createdAt                  DateTime                    @default(now())
+  updatedAt                 DateTime                    @updatedAt
 }
 
 model Question {
-  id        String   @id @default(uuid())
-  quizId    String
-  question  String
-  quiz Quiz @relation(fields: [quizId], references: [id])
+  id                    String               @id @default(uuid())
+  quizId             String
+  question        String
+  quiz                Quiz                  @relation(fields: [quizId], references: [id])
 }
 
 model Participant {
-  id        String   @id @default(uuid())
-  userId    String
-  user User @relation(fields: [userId], references: [id])
-  score Int @default(0)
-  quizId    String
-  quiz Quiz @relation(fields: [quizId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                      String                @id @default(uuid())
+  userId              String
+  user                 User                   @relation(fields: [userId], references: [id])
+  score               Int                       @default(0)
+  quizId              String
+  quiz                 Quiz                    @relation(fields: [quizId], references: [id])
+  createdAt       DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
 }

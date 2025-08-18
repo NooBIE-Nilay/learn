@@ -4,13 +4,13 @@ export default class BadRequestError extends CustomError {
   private static readonly _statusCode = 400;
   private readonly _code: number;
   private readonly _logging: boolean;
-  private readonly _context: { [key: string]: any };
+  private readonly _context: Record<string, unknown>;
 
   constructor(params?: {
     code?: number;
     message?: string;
     logging?: boolean;
-    context?: { [key: string]: any };
+    context?: Record<string, unknown>;
   }) {
     const { code, message, logging } = params || {};
     super(message || "Bad Request");

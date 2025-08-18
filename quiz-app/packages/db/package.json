@@ -3,7 +3,7 @@
   "module": "index.ts",
   "exports": {
     "./client": "./index.ts",
-    "./prisma": "./generated/prisma/"
+    "./prisma/": "./generated/prisma/"
   },
   "type": "module",
   "private": true,

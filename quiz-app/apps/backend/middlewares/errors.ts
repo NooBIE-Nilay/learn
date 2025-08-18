@@ -21,9 +21,11 @@ export const errorHandler = (
           2
         )
       );
-    res.status(statusCode).send({ errors });
+    res.status(statusCode).json({ errors });
   }
-  console.error(JSON.stringify(err, null, 2));
+  console.error(
+    JSON.stringify({ message: err.message, stack: err.stack }, null, 2)
+  );
   return res
     .status(500)
     .send({ errors: [{ message: "Something Went Wrong" }] });

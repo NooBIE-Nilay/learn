@@ -1,12 +1,11 @@
 {
-  "name": "@repo/db",
+  "name": "@repo/zod",
   "module": "index.ts",
-  "exports": {
-    "./client": "./index.ts",
-    "./prisma": "./generated/prisma/"
-  },
   "type": "module",
   "private": true,
+  "exports": {
+    "./schema": "./index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
@@ -14,7 +13,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@prisma/client": "^6.14.0",
-    "prisma": "^6.14.0"
+    "zod": "^4.0.17",
+    "@repo/db": "*"
   }
 }

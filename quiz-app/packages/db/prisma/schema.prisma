@@ -39,8 +39,13 @@ model Quiz {
 
 model Question {
   id                    String               @id @default(uuid())
+  type             QuestionType
+  mandatory    Boolean            @default(false)
   quizId             String
   question        String
+  options          String[]
+  answer           String?
+  score              Int              
   quiz                Quiz                  @relation(fields: [quizId], references: [id])
 }
 
@@ -53,4 +58,11 @@ model Participant {
   quiz                 Quiz                    @relation(fields: [quizId], references: [id])
   createdAt       DateTime            @default(now())
   updatedAt      DateTime            @updatedAt
+}
+
+enum QuestionType{
+  MCQ
+  MCQ_MULTIPLE
+  SHORT
+  LONG
 }

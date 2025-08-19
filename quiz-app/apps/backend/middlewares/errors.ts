@@ -21,7 +21,7 @@ export const errorHandler = (
           2
         )
       );
-    res.status(statusCode).json({ errors });
+    return res.status(statusCode).json({ errors });
   }
   console.error(
     JSON.stringify({ message: err.message, stack: err.stack }, null, 2)

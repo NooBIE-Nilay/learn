@@ -15,21 +15,23 @@ datasource db {
 }
 
 model User {
-  id                           String                                      @id @default(uuid())
-  email                     String                                      @unique
-  password             String
-  createdAt             DateTime                               @default(now())
-  updatedAt            DateTime                               @updatedAt
-  createdQuizzes   Quiz[]
-  participation         Participant[]
+  id            String   @id @default(cuid())     // maps to Clerk user ID
+  email         String   @unique
+  phone         String 
+  name          String?
+  quizzes       Quiz[]   @relation("UserQuizzes")
+  participants  Participant[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
+
 
 model Quiz {
   id                              String                            @id @default(uuid())
   title                           String
   description              String
   authorId                   String
-  Author                      User                            @relation(fields: [authorId], references: [id])
+  author                      User                            @relation("UserQuizzes", fields: [authorId], references: [id])
   maxScore                 Int                                @default(0)
   questions                 Question[]
   participants              Participant[]
@@ -39,14 +41,15 @@ model Quiz {
 
 model Question {
   id                    String               @id @default(uuid())
+  quizId             String
   type             QuestionType
   mandatory    Boolean            @default(false)
-  quizId             String
   question        String
   options          String[]
   answer           String?
   score              Int              
   quiz                Quiz                  @relation(fields: [quizId], references: [id])
+  answers Answer[]
 }
 
 model Participant {
@@ -56,8 +59,31 @@ model Participant {
   score               Int                       @default(0)
   quizId              String
   quiz                 Quiz                    @relation(fields: [quizId], references: [id])
+  answers Answer[]
   createdAt       DateTime            @default(now())
   updatedAt      DateTime            @updatedAt
+}
+
+model Answer {
+  id             String       @id @default(uuid())
+  participantId  String
+  participant    Participant  @relation(fields: [participantId], references: [id])
+  questionId     String
+  question       Question     @relation(fields: [questionId], references: [id])
+  // Store the answer in a flexible shape, e.g.
+  // MCQ: { selected: "A" }
+  // MCQ_MULTIPLE: { selected: ["A","C"] }
+  // SHORT/LONG: { text: "..." }
+  value          Json
+
+  // Optional scoring fields if you want to compute/grade
+  isCorrect      Boolean?
+  awardedScore   Int          @default(0)
+
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([participantId, questionId]) // one answer per question per participant
 }
 
 enum QuestionType{

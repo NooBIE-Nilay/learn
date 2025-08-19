@@ -10,9 +10,10 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@types/express": "^5.0.3",
+    "@clerk/express": "^1.7.22",
     "@repo/db": "*",
     "@repo/zod": "*",
+    "@types/express": "^5.0.3",
     "express": "^5.1.0"
   },
   "scripts": {

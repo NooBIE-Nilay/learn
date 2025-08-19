@@ -7,11 +7,10 @@ export const QuestionTypeValues = [
 ] as const;
 
 export const questionSchema = z.object({
-  quizId: z.string(),
   type: z.enum(QuestionTypeValues),
   mandatory: z.boolean().default(false),
-  question: z.string(),
-  options: z.array(z.string()).optional(),
+  question: z.string().min(1),
+  options: z.array(z.string()),
   answer: z.string().optional(),
   score: z.number().nonnegative().default(1),
 });

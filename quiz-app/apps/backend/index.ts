@@ -2,11 +2,14 @@ import Express from "express";
 import userRouter from "./routes/users";
 import quizRouter from "./routes/quiz";
 import { errorHandler } from "./middlewares/errors";
+import { clerkMiddleware } from "@clerk/express";
 
 const app = Express();
 app.use(Express.json());
 
 const PORT = process.env.BACKEND_PORT || 8080;
+
+app.use(clerkMiddleware());
 
 app.use("/user", userRouter);
 app.use("/quiz", quizRouter);

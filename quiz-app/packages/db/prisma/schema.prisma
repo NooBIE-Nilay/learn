@@ -16,8 +16,8 @@ datasource db {
 
 model User {
   id            String   @id @default(cuid())     // maps to Clerk user ID
-  email         String   @unique
-  phone         String 
+  email         String?   @unique
+  phone         String?
   name          String?
   quizzes       Quiz[]   @relation("UserQuizzes")
   participants  Participant[]

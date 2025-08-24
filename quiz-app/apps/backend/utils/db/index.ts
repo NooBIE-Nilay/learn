@@ -20,10 +20,8 @@ export async function createUserInDb(event: WebhookEvent) {
       id,
       email: email_addresses.find((e) => e.id === primary_email_address_id)
         ?.email_address,
-      phone:
-        phone_numbers
-          .find((p) => p.id === primary_phone_number_id)
-          .toString() || null,
+      phone: phone_numbers.find((p) => p.id === primary_phone_number_id)
+        ?.phone_number,
     },
   });
 }
